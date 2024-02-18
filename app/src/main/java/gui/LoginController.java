@@ -9,9 +9,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.List;
+
+import database.StubDB;
+import database.User;
 public class LoginController {
 	List<String> UserList = List.of("user1", "user2", "user3");
 	List<String> PasswordList = List.of("password1", "password2", "password3");
+	
+	// Users List from STUB DB
+	//List<User> UsersList = StubDB.getUsersList();
+	
+	
 	protected EventHandler<ActionEvent> onLoginButtonClick(Text actionTarget, TextField userTextField,
 			PasswordField pwBox, Stage stage) {
 		return new EventHandler<ActionEvent>() {
@@ -29,6 +37,8 @@ public class LoginController {
 						return;
 					}
 				}
+				
+				
 				actionTarget.setFill(javafx.scene.paint.Color.FIREBRICK);
 				actionTarget.setText("Login failed");
 			}

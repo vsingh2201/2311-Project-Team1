@@ -58,8 +58,8 @@ public class LoginView {
 		grid.add(hbBtn, 1, 4);
 		
 		Text actionTarget = new Text();
-		actionTarget.getStyleClass().setAll("alert","alert-danger");
 		grid.add(actionTarget, 1, 6);
+		
 		
 		// ADD EVENT HANDLER AND LISTENERS
 		loginBtn.setOnAction(loginController.onLoginButtonClick(actionTarget, userTextField, pwBox, stage));
@@ -68,7 +68,7 @@ public class LoginView {
 		
 		pwBox.textProperty().addListener(loginController.onPasswordTextChange(actionTarget));
 		
-		Scene scene = new Scene(grid, 500, 450 );
+		Scene scene = new Scene(grid, 500, 450);
 		// Add Stylesheet
 		scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
 		stage.setScene(scene);

@@ -9,7 +9,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 public class UserLandingPage {
 	public UserLandingPage(Stage stage) {
-		Scene userLandingScene = new Scene(new Group(), 300, 275);
+		Scene userLandingScene = new Scene(new Group(), 500, 450);
 		stage.setScene(userLandingScene);
 		stage.setTitle("User Landing Page");
 		GridPane grid = new GridPane();
