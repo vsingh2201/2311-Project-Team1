@@ -17,14 +17,14 @@ import database.User;
 public class LoginController {
 	//List<String> UserList = List.of("user1", "user2", "user3");
 	//List<String> PasswordList = List.of("password1", "password2", "password3");
-	
-	
+
+
 	// Users List from STUB DB
-	
+
 	List<User> usersList = StubDB.getUsersList();
 	int userIndex = 0;
-	
-	
+
+
 	protected EventHandler<ActionEvent> onLoginButtonClick(Text actionTarget, TextField userTextField,
 			PasswordField pwBox, Stage stage) {
 		return new EventHandler<ActionEvent>() {
@@ -33,14 +33,14 @@ public class LoginController {
 				String username = userTextField.getText();
 				String password = pwBox.getText();
 
-				
+
 				// Check if username and password match
 				for(int i = 0; i < usersList.size();i++) {
 					if (username.equals(usersList.get(i).getUserName()) && password.equals(usersList.get(i).getPassword())){
 						actionTarget.setFill(javafx.scene.paint.Color.GREEN);
 						actionTarget.setText("Login successful");
 						// change scene						
-						
+
 						// If User is of type "Customer", open CustomerLandingPage
 						// If User is of type "Farmer", open FarmerLandingPage
 						if(usersList.get(i).getUserType().equals("Farmer")) {
@@ -51,13 +51,13 @@ public class LoginController {
 							CustomerLandingPage customerLandingPage = new CustomerLandingPage(stage);
 							return;
 						}
-						
+
 					}
 				}
-				
-				
+
+
 				actionTarget.setText("Login failed");
-				
+
 			}
 		};
 	}
@@ -71,4 +71,20 @@ public class LoginController {
 			actionTarget.setText("");
 		};
 	}
+
+	// Event Handler for Register Button
+	protected EventHandler<ActionEvent> onRegisterButtonClick(Stage stage) {
+		return new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				 RegistrationPageView registrationPage = new RegistrationPageView(stage);
+	
+			}
+
+		};
+
+	}
+
 }

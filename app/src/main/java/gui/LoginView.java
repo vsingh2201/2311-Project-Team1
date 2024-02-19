@@ -11,11 +11,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
+
 import javafx.stage.Stage;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
-import database.StubDB;
 
 
 public class LoginView {
@@ -71,12 +70,14 @@ public class LoginView {
 		// ADD EVENT HANDLER AND LISTENERS
 		loginBtn.setOnAction(loginController.onLoginButtonClick(actionTarget, userTextField, pwBox, stage));
 		
+		registerBtn.setOnAction(loginController.onRegisterButtonClick(stage));
+		
 		userTextField.textProperty().addListener(loginController.onUserNameTextChange(actionTarget));
 		
 		pwBox.textProperty().addListener(loginController.onPasswordTextChange(actionTarget));
 		
 		Scene scene = new Scene(grid, 500, 450);
-		// Add Stylesheet
+		
 		scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
 		stage.setScene(scene);
 		stage.show();

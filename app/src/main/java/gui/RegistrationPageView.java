@@ -15,8 +15,8 @@ public class RegistrationPageView {
 		stage.setTitle("Registration Page");
 		GridPane grid = new GridPane();
 		Text sceneTitle = new Text("Register for the Farmers App");
-		sceneTitle.setFill(javafx.scene.paint.Color.GREEN);
-		sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+		sceneTitle.setFill(javafx.scene.paint.Color.RED);
+		sceneTitle.setFont(Font.font("Arial", FontWeight.NORMAL, 20));
 		grid.add(sceneTitle, 0, 0, 2, 1);
 		Scene scene = new Scene(grid, 500, 450);
 		stage.setScene(scene);
