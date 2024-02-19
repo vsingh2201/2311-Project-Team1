@@ -7,17 +7,22 @@ import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import java.util.List;
 
 import database.StubDB;
 import database.User;
+
 public class LoginController {
-	List<String> UserList = List.of("user1", "user2", "user3");
-	List<String> PasswordList = List.of("password1", "password2", "password3");
+	//List<String> UserList = List.of("user1", "user2", "user3");
+	//List<String> PasswordList = List.of("password1", "password2", "password3");
+	
 	
 	// Users List from STUB DB
-	//List<User> UsersList = StubDB.getUsersList();
+	
+	List<User> usersList = StubDB.getUsersList();
+	int userIndex = 0;
 	
 	
 	protected EventHandler<ActionEvent> onLoginButtonClick(Text actionTarget, TextField userTextField,
@@ -27,20 +32,32 @@ public class LoginController {
 			public void handle(ActionEvent event) {
 				String username = userTextField.getText();
 				String password = pwBox.getText();
-				// check if user_i and password_i match
-				for (int i = 0; i < UserList.size(); i++) {
-					if (username.equals(UserList.get(i)) && password.equals(PasswordList.get(i))) {
+
+				
+				// Check if username and password match
+				for(int i = 0; i < usersList.size();i++) {
+					if (username.equals(usersList.get(i).getUserName()) && password.equals(usersList.get(i).getPassword())){
 						actionTarget.setFill(javafx.scene.paint.Color.GREEN);
 						actionTarget.setText("Login successful");
-						// change scene
-						UserLandingPage userLandingPage = new UserLandingPage(stage);
-						return;
+						// change scene						
+						
+						// If User is of type "Customer", open CustomerLandingPage
+						// If User is of type "Farmer", open FarmerLandingPage
+						if(usersList.get(i).getUserType().equals("Farmer")) {
+							FarmerLandingPage farmerLandingPage = new FarmerLandingPage(stage);
+							return;
+						}
+						else if (usersList.get(i).getUserType().equals("Customer")) {
+							CustomerLandingPage customerLandingPage = new CustomerLandingPage(stage);
+							return;
+						}
+						
 					}
 				}
 				
 				
-				actionTarget.setFill(javafx.scene.paint.Color.FIREBRICK);
 				actionTarget.setText("Login failed");
+				
 			}
 		};
 	}

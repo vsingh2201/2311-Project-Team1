@@ -14,6 +14,7 @@ public class App extends javafx.application.Application {
 		LoginView login = new LoginView(loginController);
 		// Initialize the User Database
 		StubDB.intializeUserDB();
+		// Start the Login View
 		login.start(stage);
 	}
 	public static void main(String[] args) {

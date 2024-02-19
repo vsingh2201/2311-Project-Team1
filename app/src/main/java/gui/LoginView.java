@@ -11,8 +11,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import org.kordamp.bootstrapfx.BootstrapFX;
+
+import database.StubDB;
 
 
 public class LoginView {
@@ -22,6 +25,8 @@ public class LoginView {
 	}
 
 	public void start(Stage stage) {
+		
+		//StubDB.intializeUserDB();
 		stage.setTitle("Farmers Hub App");
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
@@ -57,8 +62,10 @@ public class LoginView {
 		hbBtn.getChildren().add(registerBtn);
 		grid.add(hbBtn, 1, 4);
 		
+		
 		Text actionTarget = new Text();
 		grid.add(actionTarget, 1, 6);
+		actionTarget.getStyleClass().setAll("em", "text-danger", "h3");
 		
 		
 		// ADD EVENT HANDLER AND LISTENERS

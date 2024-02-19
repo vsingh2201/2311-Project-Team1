@@ -24,10 +24,9 @@ public class StubDB {
 	}
 	
 	public static void intializeUserDB() {
-		StubDB.usersList = new ArrayList<User>();
-		User u1 = new User("John","Smith","Farmer","john123","password1");
-		User u2 = new User("Alice","Johnson","Customer","alice456","password2");
-		User u3 = new User("Bob","Williams","Customer","bob789","password3");
+		User u1 = new User("John","Smith","Farmer","john123","pass1");
+		User u2 = new User("Alice","Johnson","Customer","alice456","pass2");
+		User u3 = new User("Bob","Williams","Customer","bob789","pass3");
 		usersList.add(u1);
 		usersList.add(u2);
 		usersList.add(u3);
