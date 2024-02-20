@@ -25,7 +25,6 @@ public class LoginView {
 
 	public void start(Stage stage) {
 		
-		//StubDB.intializeUserDB();
 		stage.setTitle("Farmers Hub App");
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
