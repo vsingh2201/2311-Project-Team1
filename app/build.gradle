@@ -24,6 +24,8 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.1-jre'
     implementation 'org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0'
+    implementation 'org.postgresql:postgresql:42.7.1'
+    
 }
 
 javafx {
