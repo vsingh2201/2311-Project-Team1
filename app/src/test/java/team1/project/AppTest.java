@@ -7,7 +7,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
-    @Test void test() {
+    @Test 
+    void test() {
         //fail("Not yet implemented");
  
     }

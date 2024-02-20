@@ -17,6 +17,10 @@ public class User {
 		this.password = password;
 	}
 
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+
 	// Getters and Setters
 	public String getFirstName() {
 		return firstName;

@@ -2,6 +2,7 @@ package gui;
 
 import org.kordamp.bootstrapfx.BootstrapFX;
 
+import database.User;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -75,11 +76,26 @@ public class RegistrationPageView {
 		
 		
 		Text actionTarget = new Text();
-		grid.add(actionTarget, 1, 9);
+		grid.add(actionTarget, 1, 8);
 		actionTarget.getStyleClass().setAll("em", "text-danger", "h3");
+		
+		User oneUser = new User();
 		
 		
 		// ADD EVENT HANDLER AND LISTENERS
+		// Event Handler for Buttons
+		loginBtn.setOnAction(RegistrationController.onBackToLoginButtonClick(stage));
+		registerBtn.setOnAction(RegistrationController.onRegisterButtonClick(oneUser, actionTarget,stage));
+		
+		
+		// Event Handler for TextFields
+		fnTextField.textProperty().addListener(RegistrationController.onFirstNameTextChange(oneUser));
+		lnTextField.textProperty().addListener(RegistrationController.onLastNameTextChange(oneUser));
+		unTextField.textProperty().addListener(RegistrationController.onUserNameTextChange(oneUser));
+		pwBox.textProperty().addListener(RegistrationController.onPasswordTextChange(oneUser));
+		
+		// Event handler for the ChoiceBox
+		cb.setOnAction(RegistrationController.onUserTypeSelection(oneUser, cb));
 		
 		
 		Scene scene = new Scene(grid, 500, 450);
