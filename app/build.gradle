@@ -20,6 +20,7 @@ repositories {
 dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.1-jre'
@@ -35,10 +36,35 @@ javafx {
 
 application {
     // Define the main class for the application.
-    mainClass = 'team1.project.App'
+    mainClass = 'team1.project.ApplicationRunner'
 }
 
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+}
+
+reporting.baseDir = "my-reports"
+java.testResultsDir = layout.buildDirectory.dir("my-test-results")
+
+tasks.register('showDirs') {
+    def rootDir = project.rootDir
+    def reportsDir = project.reporting.baseDirectory
+    def testResultsDir = project.java.testResultsDir
+
+    doLast {
+        logger.quiet(rootDir.toPath().relativize(reportsDir.get().asFile.toPath()).toString())
+        logger.quiet(rootDir.toPath().relativize(testResultsDir.get().asFile.toPath()).toString())
+    }
+}
+
+test {
+    filter {
+
+        //include all tests from package
+        includeTestsMatching "app.*"
+
+        //include all integration tests
+        includeTestsMatching "*IntegTest"
+    }
 }
