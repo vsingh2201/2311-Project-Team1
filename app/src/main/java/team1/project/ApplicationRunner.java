@@ -11,7 +11,7 @@ import java.io.IOException;
 
 import controllers.LoginController;
 
-public class App extends javafx.application.Application {
+public class ApplicationRunner extends javafx.application.Application {
 
 
 
