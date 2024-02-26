@@ -47,5 +47,5 @@ Open the index.html in a web browser to see Junit Test Results.
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot](https://media.discordapp.net/attachments/1194048943387058289/1211504152010559528/image.png?ex=65ee702a&is=65dbfb2a&hm=392ed3b09a6180d8e035dc28621d54f60b7d3fa14354b78d1f23b5ac059c753e&=&format=webp&quality=lossless&width=1708&height=1060)
 
