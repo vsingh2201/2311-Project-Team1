@@ -1,6 +1,5 @@
 package repositories.userRepository;
 
-package repositories.userRepository;
 
 import java.util.ArrayList;
 import java.util.List;

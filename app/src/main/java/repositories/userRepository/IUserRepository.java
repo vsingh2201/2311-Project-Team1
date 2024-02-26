@@ -1,6 +1,5 @@
 package repositories.userRepository;
 
-package repositories.userRepository;
 
 import models.User;
 
