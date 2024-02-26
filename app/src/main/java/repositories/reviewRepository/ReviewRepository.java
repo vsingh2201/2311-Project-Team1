@@ -1,6 +1,6 @@
 package repositories.reviewRepository;
 
-package repositories.reviewRepository;
+
 
 import utils.DatabaseUtil;
 import statics.DbConfig;

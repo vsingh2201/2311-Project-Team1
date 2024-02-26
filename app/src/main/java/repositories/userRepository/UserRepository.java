@@ -1,6 +1,5 @@
 package repositories.userRepository;
 
-package repositories.userRepository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

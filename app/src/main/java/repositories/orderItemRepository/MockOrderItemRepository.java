@@ -1,6 +1,5 @@
 package repositories.orderItemRepository;
 
-package repositories.orderItemRepository;
 
 import java.util.ArrayList;
 import java.util.List;
