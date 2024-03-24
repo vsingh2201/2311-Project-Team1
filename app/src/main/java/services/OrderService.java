@@ -6,16 +6,19 @@ import java.util.HashMap;
 import java.util.List;
 import models.Item;
 import models.OrderItem;
+import models.User;
 import models.composite_responses.OrderItemResponse;
 import repositories.orderItemRepository.IOrderItemRepository;
 
 public class OrderService {
     private IOrderItemRepository orderItemRepository;
     private ItemService itemService;
+    private UserService userService;
 
-    public OrderService(IOrderItemRepository orderItemRepository, ItemService itemService) {
+    public OrderService(IOrderItemRepository orderItemRepository, ItemService itemService, UserService userService) {
         this.orderItemRepository = orderItemRepository;
         this.itemService = itemService;
+        this.userService = userService;
     }
 
     public void createOrderItem(int itemId, int customerId, int quantity, double price) {
@@ -51,6 +54,7 @@ public class OrderService {
     }
 
     public List<OrderItemResponse> getCustomerCart(int customerId) {
+
         List<OrderItem> orderItems = orderItemRepository.getOrderItemsByCustomerId(customerId);
 
         List<OrderItemResponse> orderItemResponses = new ArrayList<OrderItemResponse>();
@@ -207,15 +211,25 @@ public class OrderService {
     public void increaseQuantity(int orderItemId, int customerId) {
         OrderItem orderItem = orderItemRepository.getOrderItemById(orderItemId);
 
+        if (orderItem == null) {
+            return;
+        }
+    
         Item item = itemService.handleGetItemById(orderItem.getItemId());
 
-        List<OrderItemResponse> orderItems = getCustomerCart(customerId);
+        User user = userService.handleGetUserById(customerId);
 
-            int quantityToSet = calculateQuantityToSet(orderItemId, orderItems, item, orderItem.getQuantity() + 1);
-            
-            orderItem.setQuantity(quantityToSet);
-            orderItem.setDateOrdered(new Date().getTime()+"");
-            orderItemRepository.updateOrderItem(orderItem);
+        if (user == null) {
+            return;
+        }
+        
+        List<OrderItemResponse> orderItems = getCustomerCart(customerId);
+    
+        int quantityToSet = calculateQuantityToSet(orderItemId, orderItems, item, orderItem.getQuantity() + 1);
+    
+        orderItem.setQuantity(quantityToSet);
+        orderItem.setDateOrdered(String.valueOf(new Date().getTime()));
+        orderItemRepository.updateOrderItem(orderItem);
     }
 
     private int calculateQuantityToSet(int orderItemId, List<OrderItemResponse> orderItems, Item item, int initialQuantity) {
