@@ -10,20 +10,22 @@ import repositories.orderItemRepository.MockOrderItemRepository;
 import repositories.orderItemRepository.OrderItemRepository;
 import services.ItemService;
 import services.OrderService;
+import services.UserService;
 
 public class OrderController {
 
     private static OrderController instance;
     private ItemService itemService;
     private OrderService orderService;
+    private UserService userService;
 
     public OrderController(boolean isMock) {
         if(isMock) {
             this.itemService = new ItemService(new MockItemRepository());
-            this.orderService = new OrderService(new MockOrderItemRepository(), itemService);
+            this.orderService = new OrderService(new MockOrderItemRepository(), itemService, userService);
         } else {
             this.itemService = new ItemService(new ItemRepository());
-            this.orderService = new OrderService(new OrderItemRepository(), itemService);
+            this.orderService = new OrderService(new OrderItemRepository(), itemService, userService);
         }
     }
 
