@@ -20,7 +20,16 @@ public class SalesHistoryPage {
 
     private OrderController orderController;
 
-   public SalesHistoryPage(Stage stage, int userId, Scene previousScene) {
+    private static final String BACK_BUTTON_LABEL = "Back";
+    private static final String SALES_HISTORY_TITLE = "Sales History";
+    private static final String PAGE_TITLE_STYLE = "-fx-font-size: 20px; -fx-font-weight: bold;";
+    private static final String ITEM_BOX_STYLE = "-fx-border-color: #cccccc; -fx-border-radius: 5; -fx-background-color: #f9f9f9;";
+    private static final String DATE_ORDERED_PREFIX = "Date Ordered: ";
+    private static final String ITEM_PREFIX = "Item: ";
+    private static final String QUANTITY_SOLD_PREFIX = "Quantity Sold: ";
+    private static final String PRICE_PREFIX = "Price: $";
+
+    public SalesHistoryPage(Stage stage, int userId, Scene previousScene) {
         this.orderController = OrderController.getInstance(DbConfig.IS_MOCK);
 
         HBox topBar = new HBox();
@@ -28,11 +37,11 @@ public class SalesHistoryPage {
         topBar.setAlignment(Pos.CENTER_LEFT);
         topBar.setSpacing(20);
 
-        Button backButton = new Button("Back");
+        Button backButton = new Button(BACK_BUTTON_LABEL);
         backButton.setOnAction(e -> stage.setScene(previousScene));
 
-        Label pageTitle = new Label("Sales History");
-        pageTitle.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+        Label pageTitle = new Label(SALES_HISTORY_TITLE);
+        pageTitle.setStyle(PAGE_TITLE_STYLE);
 
         HBox.setHgrow(pageTitle, javafx.scene.layout.Priority.ALWAYS);
         pageTitle.setMaxWidth(Double.MAX_VALUE);
@@ -50,27 +59,26 @@ public class SalesHistoryPage {
         for (OrderItemResponse item : orderItems) {
             VBox itemBox = new VBox(5);
             itemBox.setPadding(new Insets(10));
-            itemBox.setStyle("-fx-border-color: #cccccc; -fx-border-radius: 5; -fx-background-color: #f9f9f9;");
+            itemBox.setStyle(ITEM_BOX_STYLE);
 
-            Label dateLabel = new Label("Date Ordered: " + DateUtils.convertEpochToString(item.getDateOrdered().toString() +""));
-            Text itemName = new Text("Item: " + item.getName());
-            Text quantity = new Text("Quantity Sold: " + item.getQuantity());
-            Text price = new Text("Price: $" + item.getPrice());
+            Label dateLabel = new Label(DATE_ORDERED_PREFIX + DateUtils.convertEpochToString(item.getDateOrdered().toString() +""));
+            Text itemName = new Text(ITEM_PREFIX + item.getName());
+            Text quantity = new Text(QUANTITY_SOLD_PREFIX + item.getQuantity());
+            Text price = new Text(PRICE_PREFIX + item.getPrice());
 
             itemBox.getChildren().addAll(dateLabel, itemName, quantity, price);
             orderList.getChildren().add(itemBox);
         }
 
-        // Main layout container
         VBox mainContainer = new VBox();
-        mainContainer.getChildren().addAll(topBar, orderList); // Add the topBar at the top
+        mainContainer.getChildren().addAll(topBar, orderList);
         mainContainer.setAlignment(Pos.TOP_CENTER);
         mainContainer.setPadding(new Insets(20));
 
         Scene scene = new Scene(mainContainer, 400, 600);
         stage.setScene(scene);
         stage.show();
-}
+    }
 
 }
     
