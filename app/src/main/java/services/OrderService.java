@@ -27,20 +27,24 @@ public class OrderService {
 
         Item item = itemService.handleGetItemById(itemId);
 
+        if (item == null) {
+            return;
+        }
+
         if(orderItem != null){
             List<OrderItemResponse> orderItems = getCustomerCart(customerId);
 
-            int quantityToSet = orderItem.getQuantity() + quantity;
+            int QUANTITY_INCREMENT = orderItem.getQuantity() + quantity;
 
             for (OrderItemResponse orderItemResponse : orderItems) {
                 if(orderItemResponse.getOrderItemId() == orderItem.getId()){
                     if(orderItemResponse.getQuantity() + quantity > item.getQuantityAvailable()){
-                        quantityToSet = item.getQuantityAvailable();
+                        QUANTITY_INCREMENT = item.getQuantityAvailable();
                     }
                 }
             }
             
-            orderItem.setQuantity(quantityToSet);
+            orderItem.setQuantity(QUANTITY_INCREMENT);
             orderItem.setDateOrdered(new Date().getTime()+"");
             orderItemRepository.updateOrderItem(orderItem);
 
@@ -52,7 +56,6 @@ public class OrderService {
             orderItemRepository.createOrderItem(orderItem);
         }
     }
-
     public List<OrderItemResponse> getCustomerCart(int customerId) {
 
         List<OrderItem> orderItems = orderItemRepository.getOrderItemsByCustomerId(customerId);
