@@ -211,19 +211,22 @@ public class OrderService {
 
         List<OrderItemResponse> orderItems = getCustomerCart(customerId);
 
-            int quantityToSet = orderItem.getQuantity() + 1;
-
-            for (OrderItemResponse orderItemResponse : orderItems) {
-                if(orderItemResponse.getOrderItemId() == orderItemId){
-                    if(orderItemResponse.getQuantity() + 1> item.getQuantityAvailable()){
-                        quantityToSet = item.getQuantityAvailable();
-                    }
-                }
-            }
+            int quantityToSet = calculateQuantityToSet(orderItemId, orderItems, item, orderItem.getQuantity() + 1);
             
             orderItem.setQuantity(quantityToSet);
             orderItem.setDateOrdered(new Date().getTime()+"");
             orderItemRepository.updateOrderItem(orderItem);
+    }
+
+    private int calculateQuantityToSet(int orderItemId, List<OrderItemResponse> orderItems, Item item, int initialQuantity) {
+        for (OrderItemResponse orderItemResponse : orderItems) {
+            if (orderItemResponse.getOrderItemId() == orderItemId) {
+                if (initialQuantity > item.getQuantityAvailable()) {
+                    return item.getQuantityAvailable();
+                }
+            }
+        }
+        return initialQuantity;
     }
     
 }
