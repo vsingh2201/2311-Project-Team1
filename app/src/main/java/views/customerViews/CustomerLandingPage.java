@@ -1,8 +1,10 @@
 package views.customerViews;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import controllers.ItemController;
 import controllers.OrderController;
@@ -18,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -43,6 +46,7 @@ public class CustomerLandingPage {
 	private OrderController orderController;
 	private ItemController itemController;
 	private ReviewController reviewController;
+	private TextField searchField; // Search field for item search
 
 	public CustomerLandingPage(Stage stage, User user) {
         this.stage = stage;
@@ -70,6 +74,12 @@ public class CustomerLandingPage {
 		Label greeting = new Label("Hi " + user.getFirstName() + "! 👋");
 		greeting.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;-fx-letter-spacing: 0.1em; -fx-text-fill: #333; -fx-font-family: 'Arial';");
 
+		// Search bar setup
+        searchField = new TextField();
+        searchField.setPromptText("Search items...");
+        searchField.setOnAction(event -> fetchAndDisplayItems()); // Fetch items on pressing Enter
+
+
 		HBox linksContainer = new HBox(5); 
 		linksContainer.setAlignment(Pos.CENTER_RIGHT);
 		HBox.setHgrow(linksContainer, javafx.scene.layout.Priority.ALWAYS); 
@@ -88,7 +98,7 @@ public class CustomerLandingPage {
 
 		linksContainer.getChildren().addAll(orderHistoryLink, goToCartLink);
 
-		topBar.getChildren().addAll(greeting, linksContainer);
+		topBar.getChildren().addAll(greeting, searchField, linksContainer);
 
 
 		ScrollPane scrollPane = new ScrollPane(vbox);
@@ -131,7 +141,12 @@ public class CustomerLandingPage {
 	 private void fetchAndDisplayItems() {
         Platform.runLater(() -> {
             List<Item> fetchedItems = itemController.handleGetAllItems();
-            List<Item> items = fetchedItems != null ? FXCollections.observableArrayList(fetchedItems) : FXCollections.observableArrayList();
+			    String searchText = searchField.getText().toLowerCase();
+
+            List<Item> items = fetchedItems != null
+                ? fetchedItems.stream().filter(item -> item.getName().toLowerCase().contains(searchText)).collect(Collectors.toList())
+                : new ArrayList<>();
+            // List<Item> items = fetchedItems != null ? FXCollections.observableArrayList(fetchedItems) : FXCollections.observableArrayList();
             vbox.getChildren().clear(); // Clear existing items before adding new ones
 
             // Rebuild the items display in vbox similar to how you initially populate it in the constructor

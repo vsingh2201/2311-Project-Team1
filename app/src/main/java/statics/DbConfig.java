@@ -5,5 +5,5 @@ public class DbConfig {
     public static final String DB_USER = "postgres";
     public static final String DB_PASSWORD = "Police123";
 
-    public static final boolean IS_MOCK = true;
+    public static final boolean IS_MOCK = false;
 }
