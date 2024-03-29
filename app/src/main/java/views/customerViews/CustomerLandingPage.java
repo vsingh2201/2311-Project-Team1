@@ -229,12 +229,13 @@ public class CustomerLandingPage {
 
 				addToCartButton.setOnAction(e -> {
 					int quantity = Integer.parseInt(quantityLabel.getText()); // Get the adjusted quantity
-					orderController.addToCart(item, quantity, userId);
-					int cartSize = orderController.getTotalCartQuantity(userId);
-					goToCartLink.setText("Cart" + "(" + cartSize + ") " + "🛒");
-					quantityLabel.setText("0");
-					itemQuantities.put(item.getId(), 0);
-
+					if (quantity > 0) { // Check if the quantity is greater than 0
+						orderController.addToCart(item, quantity, userId);
+						int cartSize = orderController.getTotalCartQuantity(userId);
+						goToCartLink.setText("Cart" + "(" + cartSize + ") " + "🛒");
+						quantityLabel.setText("0");
+						itemQuantities.put(item.getId(), 0); // Reset the quantity in the map
+					}
 				});
 
 				seeReviewsButton.setOnAction(e -> {
