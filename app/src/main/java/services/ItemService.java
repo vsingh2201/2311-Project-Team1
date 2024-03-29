@@ -11,14 +11,15 @@ import repositories.itemRepository.IItemRepository;
 import statics.ItemStatics;
 
 public class ItemService {
-    
+
     private IItemRepository itemRepository;
 
     public ItemService(IItemRepository itemRepository) {
         this.itemRepository = itemRepository;
     }
 
-    public boolean handleCreateItem(String name, String description, double price, int quantity, String type, int farmerId, Text actionTarget, String condition) {
+    public boolean handleCreateItem(String name, String description, double price, int quantity, String type,
+            int farmerId, Text actionTarget, String condition) {
         String validationMessage = validateUpsertItem(name, description, price, quantity, type, condition);
 
         if (!validationMessage.isEmpty()) {
@@ -30,10 +31,9 @@ public class ItemService {
 
         Item newItem = null;
 
-        if(type.toUpperCase().equals(ItemStatics.MACHINE)){
+        if (type.toUpperCase().equals(ItemStatics.MACHINE)) {
             newItem = new Machine(farmerId, name, description, price, quantity, condition);
-        }
-        else {
+        } else {
             newItem = new Produce(farmerId, name, description, price, quantity);
         }
 
@@ -42,10 +42,11 @@ public class ItemService {
         actionTarget.setText("Item Created Successfully");
 
         return true;
-        
+
     }
 
-    public boolean handleUpdateItem(String name, String description, double price, int quantityAvailable, String type, int farmerId, Text actionTarget, String condition) {
+    public boolean handleUpdateItem(String name, String description, double price, int quantityAvailable, String type,
+            int farmerId, Text actionTarget, String condition) {
         String validationMessage = validateUpsertItem(name, description, price, quantityAvailable, type, condition);
 
         if (!validationMessage.isEmpty()) {
@@ -59,21 +60,21 @@ public class ItemService {
 
         Item fetchedItem = itemRepository.getItemByFarmerIdAndName(farmerId, name);
 
-        if(type.toUpperCase().equals(ItemStatics.MACHINE)){
-            newItem = new Machine( farmerId, name, description, price, quantityAvailable, condition);
+        System.out.println("farmer Id: " + farmerId);
+        System.out.println("Item name: " + name);
+        System.out.println("fetchedItem: " + fetchedItem.getId());
 
-        }
-        else {
+        if (type.toUpperCase().equals(ItemStatics.MACHINE)) {
+            newItem = new Machine(farmerId, name, description, price, quantityAvailable, condition);
+
+        } else {
             newItem = new Produce(farmerId, name, description, price, quantityAvailable);
         }
 
-
-        if(fetchedItem != null){
+        if (fetchedItem != null) {
             newItem.setId(fetchedItem.getId());
         }
         itemRepository.updateItem(newItem);
-
-   
 
         actionTarget.setText("Item Updated Successfully");
 
@@ -84,7 +85,6 @@ public class ItemService {
         itemRepository.updateQuantityAvailable(itemId, quantityAvailable);
     }
 
-
     public Item handleGetItemById(int itemId) {
         return itemRepository.getItemById(itemId);
     }
@@ -94,13 +94,13 @@ public class ItemService {
     }
 
     public List<Item> handleGetAllItems() {
-        
+
         List<Item> fetchedItems = itemRepository.getAllItems();
 
         List<Item> items = new ArrayList<>();
-        
+
         for (Item item : fetchedItems) {
-            if(item.getQuantityAvailable() > 0){
+            if (item.getQuantityAvailable() > 0) {
                 items.add(item);
             }
         }
@@ -111,27 +111,36 @@ public class ItemService {
     public List<Item> handleGetItemsByIds(List<Integer> itemIds) {
         return itemRepository.getItemsByIds(itemIds);
     }
-    
+
     public void handleDeleteItem(Item item) {
         itemRepository.deleteItem(item);
         // actionTarget.setText("Item Deleted Successfully");
     }
 
-    private String validateUpsertItem(String name, String description, double price, int quantity, String type, String condition) {
+    private String validateUpsertItem(String name, String description, double price, int quantity, String type,
+            String condition) {
         StringBuilder missingFields = new StringBuilder("Missing fields: ");
 
-        if (name == null || name.trim().isEmpty()) missingFields.append("\nName, ");
+        if (name == null || name.trim().isEmpty())
+            missingFields.append("\nName, ");
 
-        if (description == null || description.trim().isEmpty()) missingFields.append("\nDescription, ");
+        if (description == null || description.trim().isEmpty())
+            missingFields.append("\nDescription, ");
 
-        if (price <= 0) missingFields.append("\nPrice, ");
+        if (price <= 0)
+            missingFields.append("\nPrice, ");
 
-        if (quantity <= 0) missingFields.append("\nQuantity, ");
+        if (quantity <= 0)
+            missingFields.append("\nQuantity, ");
 
+        if (type == null || type.trim().isEmpty()) {
+            missingFields.append("\nType, ");
+        }
 
-        if (type == null || type.trim().isEmpty()) {missingFields.append("\nType, ");}
-
-        if (type != null && type.toUpperCase().equals(ItemStatics.MACHINE) && (condition == null || condition.trim().isEmpty())) {missingFields.append("\nCondition, ");}
+        if (type != null && type.toUpperCase().equals(ItemStatics.MACHINE)
+                && (condition == null || condition.trim().isEmpty())) {
+            missingFields.append("\nCondition, ");
+        }
 
         if (missingFields.length() > "Missing fields: ".length()) {
 
@@ -145,5 +154,4 @@ public class ItemService {
         }
     }
 
-    
 }
