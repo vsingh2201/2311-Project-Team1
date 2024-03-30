@@ -2,6 +2,8 @@ package views.customerViews;
 
 import java.util.List;
 
+import org.kordamp.bootstrapfx.BootstrapFX;
+
 import controllers.ItemController;
 import controllers.ReviewController;
 import javafx.application.Platform;
@@ -19,6 +21,7 @@ import javafx.stage.Stage;
 import models.composite_responses.RatingAndReviewResponse;
 import statics.DbConfig;
 import utils.DateUtils;
+import org.kordamp.bootstrapfx.BootstrapFX;
 
 public class ReviewPage {
 
@@ -30,7 +33,7 @@ public class ReviewPage {
         this.reviewController = ReviewController.getInstance(DbConfig.IS_MOCK);
         this.itemController = ItemController.getInstance(DbConfig.IS_MOCK);
         
-        stage.setTitle("Farmers Hub - Customer - Reviews");
+        stage.setTitle("Farmers Hub - Customer");
        
 
         HBox topBar = new HBox();
@@ -39,6 +42,7 @@ public class ReviewPage {
         topBar.setSpacing(10);
 
         Button backButton = new Button("Back");
+        backButton.getStyleClass().setAll("btn-sm","btn-primary");
         backButton.setOnAction(e -> goBack(stage, previousScene));
 
         Label pageTitle = new Label(); 
@@ -98,12 +102,14 @@ public class ReviewPage {
         reviewInput.setMaxHeight(100);
 
         Button submitReviewButton = new Button("Submit Review");
+        submitReviewButton.getStyleClass().setAll("btn-sm","btn-success");
 
         submitReviewButton.setOnAction(reviewController.submitReview(ratingInput, reviewInput, stage, itemId, userId, previousScene));
 
         mainLayout.getChildren().addAll(new Label("Add Your Review:"), ratingInput, reviewInput, submitReviewButton);
 
         Scene scene = new Scene(mainLayout, 400, 600);
+        scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
         Platform.runLater(() -> stage.setScene(scene));
     }
 

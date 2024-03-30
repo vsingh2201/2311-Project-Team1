@@ -2,6 +2,8 @@ package views.customerViews;
 
 import java.util.List;
 
+import org.kordamp.bootstrapfx.BootstrapFX;
+
 import controllers.LoginController;
 import controllers.OrderController;
 import javafx.animation.PauseTransition;
@@ -20,6 +22,7 @@ import models.User;
 import models.composite_responses.OrderItemResponse;
 import statics.DbConfig;
 import utils.StringUtils;
+import org.kordamp.bootstrapfx.BootstrapFX;
 
 
 public class CartPage {
@@ -44,6 +47,8 @@ public class CartPage {
             topBar.setSpacing(20);
         
             Button backButton = new Button("Back");
+         // Set style for BackButton
+            backButton.getStyleClass().setAll("btn-sm","btn-primary");
             backButton.setOnAction(e -> new CustomerLandingPage(stage, loginController.getUserById(userId)));
         
             Label pageTitle = new Label("Your Cart");
@@ -163,8 +168,9 @@ public class CartPage {
         mainContainer.setPadding(new Insets(20));
 
         Scene scene = new Scene(mainContainer, 400, 600);
+        scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
         stage.setScene(scene);
-        stage.setTitle("Farmers Hub - Customer - Shopping Cart");
+        stage.setTitle("Farmers Hub - Customer");
         stage.show();
     }
 

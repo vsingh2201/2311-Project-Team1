@@ -34,6 +34,7 @@ import models.Produce;
 import models.User;
 import statics.DbConfig;
 import utils.StringUtils;
+import org.kordamp.bootstrapfx.BootstrapFX;
 
 public class CustomerLandingPage {
 
@@ -138,7 +139,9 @@ public class CustomerLandingPage {
 		mainLayout.setTop(layout);
 		mainLayout.setCenter(scrollPane);
 
-		Scene scene = new Scene(mainLayout, 500, 600);
+		Scene scene = new Scene(mainLayout, 550, 650);
+		// Add Bootstrap FX stylesheet to scene
+        scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
 		orderHistoryLink.setOnAction(e -> showOrderHistoryPage(stage, userId, scene));
 		goToCartLink.setOnAction(e -> showCartPage(stage, userId, scene));
 		stage.setScene(scene);
@@ -224,7 +227,11 @@ public class CustomerLandingPage {
 				});
 
 				Button addToCartButton = new Button("Add to Cart");
+				// Set style for addToCartButton
+		        addToCartButton.getStyleClass().setAll("btn-sm","btn-primary");
 				Button seeReviewsButton = new Button("See Reviews");
+				// Set style for seeReviewsButton
+		        seeReviewsButton.getStyleClass().setAll("btn-sm","btn-info");
 				HBox buttonsBox = new HBox(10, addToCartButton, seeReviewsButton);
 				buttonsBox.setAlignment(Pos.CENTER_RIGHT);
 

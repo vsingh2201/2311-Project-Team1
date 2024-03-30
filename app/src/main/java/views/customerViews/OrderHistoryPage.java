@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import models.composite_responses.OrderItemResponse;
 import statics.DbConfig;
 import utils.DateUtils;
+import org.kordamp.bootstrapfx.BootstrapFX;
 
 public class OrderHistoryPage {
 
@@ -31,6 +32,8 @@ public class OrderHistoryPage {
         topBar.setSpacing(10);
 
         Button backButton = new Button("Back");
+     // Set style for BackButton
+        backButton.getStyleClass().setAll("btn-sm","btn-primary");
         backButton.setOnAction(e -> goBack(stage, previousScene));
 
         Label pageTitle = new Label("Your Order History");
@@ -77,8 +80,9 @@ public class OrderHistoryPage {
         mainLayout.getChildren().add(orderList); 
 
         Scene scene = new Scene(mainLayout, 400, 600);
+        scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
         stage.setScene(scene);
-        stage.setTitle("Farmers Hub - Customer - Order History");
+        stage.setTitle("Farmers Hub - Customer");
         stage.show();
     }
 

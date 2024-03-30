@@ -180,7 +180,7 @@ public class UploadItemPage {
         Scene scene = new Scene(mainContainer, 450, 700); 
         scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
         stage.setScene(scene);
-        stage.setTitle("Farmers Hub - Farmer - Upload Item");
+        stage.setTitle("Farmers Hub - Farmer");
         stage.show();
     }
 
