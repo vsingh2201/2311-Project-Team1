@@ -83,6 +83,42 @@ public class RegistrationController {
 			};
 
 		}
+		
+		// Event Handler for Update Button
+		// Event Handler for Register Button
+				public EventHandler<ActionEvent> onUpdateButtonClick(TextField currentUserName,PasswordField currentPwd, TextField newUnameField, PasswordField newPwdField, Text actionTarget, Stage stage) {
+
+					return new EventHandler<ActionEvent>() {
+
+
+						@Override
+						public void handle(ActionEvent event) {
+							String oldUserName = currentUserName.getText();
+							String oldPassword = currentPwd.getText();
+							String newUserName = newUnameField.getText();
+							String newPassword = newPwdField.getText();
+							
+
+							//boolean isValid = userService.handleRegisterUser(firstName, lastName, userName, password, role, actionTarget);
+
+							boolean isValid = true;
+							if(!isValid) {
+								return;
+							}
+
+							PauseTransition delay = new PauseTransition(Duration.seconds(0.3));
+
+							delay.setOnFinished(e -> {
+								LoginView loginView = new LoginView(LoginController.getInstance(isMock));
+								loginView.start(stage);
+							});
+
+							delay.play();
+						}       
+					};
+
+				}
+		
 
 
 		
