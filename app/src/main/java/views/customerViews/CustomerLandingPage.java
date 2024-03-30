@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import controllers.ItemController;
 import controllers.OrderController;
+import controllers.RegistrationController;
 import controllers.ReviewController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -34,6 +35,11 @@ import models.Produce;
 import models.User;
 import statics.DbConfig;
 import utils.StringUtils;
+import org.kordamp.bootstrapfx.BootstrapFX;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 
 public class CustomerLandingPage {
 
@@ -47,6 +53,7 @@ public class CustomerLandingPage {
 	private OrderController orderController;
 	private ItemController itemController;
 	private ReviewController reviewController;
+	private RegistrationController registrationController;
 	private TextField searchField; // Search field for item search
 	private String filterType = ""; // To store the current filter type
 
@@ -57,6 +64,7 @@ public class CustomerLandingPage {
 		this.orderController = OrderController.getInstance(DbConfig.IS_MOCK);
 		this.itemController = ItemController.getInstance(DbConfig.IS_MOCK);
 		this.reviewController = ReviewController.getInstance(DbConfig.IS_MOCK);
+		this.registrationController = RegistrationController.getInstance(DbConfig.IS_MOCK);
 
 		initializeUI();
 		startItemFetchLoop();
@@ -97,8 +105,37 @@ public class CustomerLandingPage {
 		goToCartLink.setStyle("-fx-font-size: 16px;");
 
 		linksContainer.getChildren().addAll(orderHistoryLink, goToCartLink);
+		
+		// Create an ImageView for the dropdown menu
+		ImageView dropdownIcon = new ImageView(new Image(getClass().getResourceAsStream("/images/UserProfile.png")));
+        dropdownIcon.setFitWidth(30);
+        dropdownIcon.setFitHeight(30);
+        
+        // Create context menu
+        ContextMenu contextMenu = new ContextMenu();
 
-		topBar.getChildren().addAll(greeting, searchField, linksContainer);
+        // Create menu items
+        MenuItem updateProfileItem = new MenuItem("Update Profile");
+        MenuItem logoutItem = new MenuItem("Logout");
+
+        // Add menu items to context menu
+        contextMenu.getItems().addAll(updateProfileItem, logoutItem);
+        
+        // Add event handlers to menu items
+        updateProfileItem.setOnAction(e -> {
+            // Handle update profile action here
+            // For example:
+            // showUpdateProfilePage();
+        });
+       
+        logoutItem.setOnAction(registrationController.onBackToLoginButtonClick(stage));
+        
+        // Add event handler to the ImageView to show context menu
+        dropdownIcon.setOnMouseClicked(event -> {
+            contextMenu.show(dropdownIcon, event.getScreenX(), event.getScreenY());
+        });
+
+		topBar.getChildren().addAll(greeting, searchField, linksContainer, dropdownIcon);
 
 		// Filter buttons
 
@@ -138,10 +175,13 @@ public class CustomerLandingPage {
 		mainLayout.setTop(layout);
 		mainLayout.setCenter(scrollPane);
 
-		Scene scene = new Scene(mainLayout, 500, 600);
+		Scene scene = new Scene(mainLayout, 550, 650);
+		// Add Bootstrap FX stylesheet to scene
+        scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
 		orderHistoryLink.setOnAction(e -> showOrderHistoryPage(stage, userId, scene));
 		goToCartLink.setOnAction(e -> showCartPage(stage, userId, scene));
 		stage.setScene(scene);
+		stage.setTitle("Farmers Hub - Customer");
 		stage.show();
 
 	}
@@ -223,7 +263,11 @@ public class CustomerLandingPage {
 				});
 
 				Button addToCartButton = new Button("Add to Cart");
+				// Set style for addToCartButton
+		        addToCartButton.getStyleClass().setAll("btn-sm","btn-primary");
 				Button seeReviewsButton = new Button("See Reviews");
+				// Set style for seeReviewsButton
+		        seeReviewsButton.getStyleClass().setAll("btn-sm","btn-info");
 				HBox buttonsBox = new HBox(10, addToCartButton, seeReviewsButton);
 				buttonsBox.setAlignment(Pos.CENTER_RIGHT);
 

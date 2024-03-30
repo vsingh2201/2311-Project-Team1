@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import models.composite_responses.OrderItemResponse;
 import statics.DbConfig;
 import utils.DateUtils;
+import org.kordamp.bootstrapfx.BootstrapFX;
 
 public class SalesHistoryPage {
 
@@ -38,6 +39,8 @@ public class SalesHistoryPage {
         topBar.setSpacing(20);
 
         Button backButton = new Button(BACK_BUTTON_LABEL);
+     // Set style for BackButton
+        backButton.getStyleClass().setAll("btn-sm","btn-primary");
         backButton.setOnAction(e -> stage.setScene(previousScene));
 
         Label pageTitle = new Label(SALES_HISTORY_TITLE);
@@ -76,7 +79,9 @@ public class SalesHistoryPage {
         mainContainer.setPadding(new Insets(20));
 
         Scene scene = new Scene(mainContainer, 400, 600);
+        scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
         stage.setScene(scene);
+        stage.setTitle("Farmers Hub - Farmer");
         stage.show();
     }
 

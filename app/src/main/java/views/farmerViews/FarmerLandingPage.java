@@ -2,6 +2,7 @@ package views.farmerViews;
 
 import java.util.List;
 import controllers.ItemController;
+import controllers.RegistrationController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -23,6 +24,11 @@ import models.Machine;
 import models.User;
 import statics.DbConfig;
 import utils.StringUtils;
+import org.kordamp.bootstrapfx.BootstrapFX;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 
 public class FarmerLandingPage {
     private VBox vbox;
@@ -31,10 +37,12 @@ public class FarmerLandingPage {
     private User user;
 
     private ItemController itemController;
+    private RegistrationController registrationController;
 
 
     public FarmerLandingPage(Stage stage, User user) {
         this.itemController = ItemController.getInstance(DbConfig.IS_MOCK);
+        this.registrationController = RegistrationController.getInstance(DbConfig.IS_MOCK);
         this.stage = stage;
         this.userId = user.getId();
         this.user = user;
@@ -69,10 +77,41 @@ public class FarmerLandingPage {
 		Hyperlink uploadItemLink = new Hyperlink("Upload Item 💭");
 
 		uploadItemLink.setStyle("-fx-font-size: 16px;");
+		
+		linksContainer.getChildren().addAll(salesHistoryLink, uploadItemLink);
+		
+		// Create an ImageView for the dropdown menu
+        ImageView dropdownIcon = new ImageView(new Image(getClass().getResourceAsStream("/images/UserProfile.png")));
+        dropdownIcon.setFitWidth(30);
+        dropdownIcon.setFitHeight(30);
         
-        linksContainer.getChildren().addAll(salesHistoryLink, uploadItemLink);
+     // Create context menu
+        ContextMenu contextMenu = new ContextMenu();
 
-        topBar.getChildren().addAll(greeting, linksContainer);
+        // Create menu items
+        MenuItem updateProfileItem = new MenuItem("Update Profile");
+        MenuItem logoutItem = new MenuItem("Logout");
+
+        // Add menu items to context menu
+        contextMenu.getItems().addAll(updateProfileItem, logoutItem);
+        
+        // Add event handlers to menu items
+        updateProfileItem.setOnAction(e -> {
+            // Handle update profile action here
+            // For example:
+            // showUpdateProfilePage();
+        });
+
+        logoutItem.setOnAction(registrationController.onBackToLoginButtonClick(stage));
+        
+        // Add event handler to the ImageView to show context menu
+        dropdownIcon.setOnMouseClicked(event -> {
+            contextMenu.show(dropdownIcon, event.getScreenX(), event.getScreenY());
+        });
+
+        topBar.getChildren().addAll(greeting, linksContainer, dropdownIcon);
+        
+     
 
         ScrollPane scrollPane = new ScrollPane(vbox);
         scrollPane.setContent(vbox);
@@ -83,10 +122,14 @@ public class FarmerLandingPage {
         mainLayout.setTop(topBar);
         mainLayout.setCenter(scrollPane); // Wrap vbox in a ScrollPane for scrolling support
 
-        Scene scene = new Scene(mainLayout, 400, 600);
+        Scene scene = new Scene(mainLayout, 450, 650);
+        // Add Bootstrap FX stylesheet to scene
+        scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+        
         salesHistoryLink.setOnAction(e -> showSalesHistoryPage(stage, userId,scene));
         uploadItemLink.setOnAction(e -> showUploadItemPage(stage, userId,scene));
         stage.setScene(scene);
+        stage.setTitle("Farmers Hub - Farmer");
         stage.show();
     }
 
@@ -124,6 +167,10 @@ public class FarmerLandingPage {
 
                 Button updateButton = new Button("Update");
                 Button deleteButton = new Button("Delete");
+                
+                // Add style class to buttons
+                updateButton.getStyleClass().setAll("btn-sm","btn-success");
+                deleteButton.getStyleClass().setAll("btn-sm","btn-danger");
 
                 HBox buttonsBox = new HBox(10);
                 buttonsBox.setAlignment(Pos.CENTER_RIGHT);
