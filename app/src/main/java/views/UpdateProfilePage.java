@@ -34,7 +34,7 @@ public class UpdateProfilePage {
 		grid.setVgap(25);
 		grid.setPadding(new javafx.geometry.Insets(25, 25, 25, 25));
 		
-		Text sceneTitle = new Text("Farmers Hub - Update Profile");
+		Text sceneTitle = new Text("Farmers Hub - Change Password");
 		sceneTitle.setFont(Font.font("Arial", FontWeight.NORMAL, 20));
 		grid.add(sceneTitle, 1, 0, 2, 1);
 		
@@ -44,11 +44,9 @@ public class UpdateProfilePage {
 		Label currentPassword = new Label("Current Password:");
 		grid.add(currentPassword, 0, 2);
 		
-		Label newUserName = new Label("New Username:");
-		grid.add(newUserName, 0, 3);
 		
 		Label newPassword = new Label("New Password:");
-		grid.add(newPassword, 0, 4);
+		grid.add(newPassword, 0, 3);
 		
 		
 		TextField currentNameField = new TextField();
@@ -57,11 +55,9 @@ public class UpdateProfilePage {
 		PasswordField currentPwdField = new PasswordField();
 		grid.add(currentPwdField, 1, 2,2,1);
 		
-		TextField newNameField = new TextField();
-		grid.add(newNameField, 1, 3,2,1);
 			
 		PasswordField newPwdField = new PasswordField();
-		grid.add(newPwdField, 1, 4, 2, 1);
+		grid.add(newPwdField, 1, 3, 2, 1);
 		
 		
 		Button backBtn = new Button("Back");
@@ -70,17 +66,15 @@ public class UpdateProfilePage {
 		updateBtn.getStyleClass().setAll("btn","btn-success");
 		
 		
-		
-		
 		HBox hbBtn = new HBox(10);
 		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
 		hbBtn.getChildren().add(updateBtn);
 		hbBtn.getChildren().add(backBtn);
-		grid.add(hbBtn, 1, 5);
+		grid.add(hbBtn, 1, 4);
 		
 		
 		Text actionTarget = new Text();
-		grid.add(actionTarget, 1, 7);
+		grid.add(actionTarget, 1, 6);
 		actionTarget.getStyleClass().setAll("em", "text-danger", "h4");
 		
 
@@ -88,10 +82,8 @@ public class UpdateProfilePage {
 		// Event Handler for Buttons
 		
 		backBtn.setOnAction(e->stage.setScene(previousScene));
-
-		//registerBtn.setOnAction(registrationController.onRegisterButtonClick(fnTextField, lnTextField, unTextField, pwBox, actionTarget, stage));
 		
-		updateBtn.setOnAction(registrationController.onUpdateButtonClick(currentNameField, currentPwdField, newNameField, newPwdField, actionTarget, stage));
+		updateBtn.setOnAction(registrationController.onUpdateButtonClick(currentNameField, currentPwdField, newPwdField, actionTarget, stage));
 		
 		Scene scene = new Scene(grid, 600, 600);
 		

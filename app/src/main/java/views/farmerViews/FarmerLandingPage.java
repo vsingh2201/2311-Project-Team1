@@ -91,7 +91,7 @@ public class FarmerLandingPage {
         ContextMenu contextMenu = new ContextMenu();
 
         // Create menu items
-        MenuItem updateProfileItem = new MenuItem("Update Profile");
+        MenuItem updateProfileItem = new MenuItem("Change Password");
         MenuItem logoutItem = new MenuItem("Logout");
 
         // Add menu items to context menu

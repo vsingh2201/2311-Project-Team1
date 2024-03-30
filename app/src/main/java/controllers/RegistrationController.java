@@ -86,7 +86,7 @@ public class RegistrationController {
 		
 		// Event Handler for Update Button
 		// Event Handler for Register Button
-				public EventHandler<ActionEvent> onUpdateButtonClick(TextField currentUserName,PasswordField currentPwd, TextField newUnameField, PasswordField newPwdField, Text actionTarget, Stage stage) {
+				public EventHandler<ActionEvent> onUpdateButtonClick(TextField currentUserName,PasswordField currentPwd, PasswordField newPwdField, Text actionTarget, Stage stage) {
 
 					return new EventHandler<ActionEvent>() {
 
@@ -95,20 +95,22 @@ public class RegistrationController {
 						public void handle(ActionEvent event) {
 							String oldUserName = currentUserName.getText();
 							String oldPassword = currentPwd.getText();
-							String newUserName = newUnameField.getText();
 							String newPassword = newPwdField.getText();
 							
 
 							//boolean isValid = userService.handleRegisterUser(firstName, lastName, userName, password, role, actionTarget);
+							boolean isValid = userService.handleUpdateUser(oldUserName, oldPassword, newPassword);
 
-							boolean isValid = true;
+							//boolean isValid = true;
 							if(!isValid) {
+								actionTarget.setText("Invalid username or password!");
 								return;
 							}
 
 							PauseTransition delay = new PauseTransition(Duration.seconds(0.3));
 
 							delay.setOnFinished(e -> {
+								actionTarget.setText("Password Successfully updated");
 								LoginView loginView = new LoginView(LoginController.getInstance(isMock));
 								loginView.start(stage);
 							});

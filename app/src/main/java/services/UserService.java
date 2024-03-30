@@ -52,6 +52,24 @@ public class UserService {
         
         return true;
     }
+    // Method for updating user profile (changing password only)
+    public boolean handleUpdateUser(String oldUserName, String oldPassword, String newPassword) {
+    	User user = userRepository.validateUser(oldUserName, oldPassword);
+    	
+    	if (user == null) {
+    		// Old username or password is invalid
+    		return false;
+    	}
+    	
+    	// Update password with new values
+  
+        user.setPassword(newPassword);
+        
+        userRepository.updateUserProfile(user);
+        
+        
+        return true;
+    }
     
     public User handleUserLogin(String username, String password) {
         return userRepository.validateUser(username, password);

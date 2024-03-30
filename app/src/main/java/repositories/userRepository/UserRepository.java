@@ -194,4 +194,28 @@ public class UserRepository implements IUserRepository{
         }
         return user;
     }
+    
+    // Method to update password
+    public void updateUserProfile(User user) {
+        String sql = "UPDATE users SET password = ? WHERE username = ?";
+
+        try (Connection conn = DatabaseUtil.connect(DbConfig.DB_CONNECTION_STRING, DbConfig.DB_USER, DbConfig.DB_PASSWORD);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, user.getPassword());
+            pstmt.setString(2, user.getUsername());
+
+            int affectedRows = pstmt.executeUpdate();
+
+            if (affectedRows > 0) {
+                System.out.println("User password updated successfully.");
+            } else {
+                System.out.println("User not found.");
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }
