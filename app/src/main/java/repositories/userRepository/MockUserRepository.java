@@ -71,5 +71,17 @@ public class MockUserRepository implements IUserRepository{
             .findFirst()
             .orElse(null);
     }
+
+	// Method to update password
+	public void updateUserProfile(User user) {
+	    for (User u : users) {
+	        if (u.getUsername().equals(user.getUsername())) {
+	            u.setPassword(user.getPassword());
+	            System.out.println("User password updated successfully.");
+	            return;
+	        }
+	    }
+	    System.out.println("User not found.");
+	}
     
 }

@@ -24,6 +24,8 @@ import models.Machine;
 import models.User;
 import statics.DbConfig;
 import utils.StringUtils;
+import views.UpdateProfilePage;
+
 import org.kordamp.bootstrapfx.BootstrapFX;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
@@ -89,7 +91,7 @@ public class FarmerLandingPage {
         ContextMenu contextMenu = new ContextMenu();
 
         // Create menu items
-        MenuItem updateProfileItem = new MenuItem("Update Profile");
+        MenuItem updateProfileItem = new MenuItem("Change Password");
         MenuItem logoutItem = new MenuItem("Logout");
 
         // Add menu items to context menu
@@ -98,8 +100,8 @@ public class FarmerLandingPage {
         // Add event handlers to menu items
         updateProfileItem.setOnAction(e -> {
             // Handle update profile action here
-            // For example:
-            // showUpdateProfilePage();
+        	 Scene currentScene = stage.getScene();
+        	 showUpdateProfilePage(stage,currentScene);
         });
 
         logoutItem.setOnAction(registrationController.onBackToLoginButtonClick(stage));
@@ -211,4 +213,7 @@ public class FarmerLandingPage {
    
         new UploadItemPage(stage, null, userId, scene);
     }
+	private void showUpdateProfilePage(Stage stage, Scene scene) {
+		new UpdateProfilePage(stage,scene);
+	}
 }

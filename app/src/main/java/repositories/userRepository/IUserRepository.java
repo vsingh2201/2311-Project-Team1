@@ -10,4 +10,5 @@ public interface IUserRepository {
     public User getUserById(int id);
     public User getUserByUsername(String userName);
     public User validateUser(String username, String password);
+	public void updateUserProfile(User user);
 }
