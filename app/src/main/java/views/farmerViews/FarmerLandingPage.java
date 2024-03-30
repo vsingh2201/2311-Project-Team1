@@ -87,6 +87,7 @@ public class FarmerLandingPage {
         salesHistoryLink.setOnAction(e -> showSalesHistoryPage(stage, userId,scene));
         uploadItemLink.setOnAction(e -> showUploadItemPage(stage, userId,scene));
         stage.setScene(scene);
+        stage.setTitle("Farmers Hub - Farmer");
         stage.show();
     }
 

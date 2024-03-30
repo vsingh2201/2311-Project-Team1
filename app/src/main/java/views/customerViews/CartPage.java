@@ -164,6 +164,7 @@ public class CartPage {
 
         Scene scene = new Scene(mainContainer, 400, 600);
         stage.setScene(scene);
+        stage.setTitle("Farmers Hub - Customer - Shopping Cart");
         stage.show();
     }
 

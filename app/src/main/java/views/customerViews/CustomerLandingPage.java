@@ -142,6 +142,7 @@ public class CustomerLandingPage {
 		orderHistoryLink.setOnAction(e -> showOrderHistoryPage(stage, userId, scene));
 		goToCartLink.setOnAction(e -> showCartPage(stage, userId, scene));
 		stage.setScene(scene);
+		stage.setTitle("Farmers Hub - Customer");
 		stage.show();
 
 	}

@@ -174,6 +174,7 @@ public class UploadItemPage {
 
         Scene scene = new Scene(mainContainer, 450, 700); 
         stage.setScene(scene);
+        stage.setTitle("Farmers Hub - Farmer - Upload Item");
         stage.show();
     }
 

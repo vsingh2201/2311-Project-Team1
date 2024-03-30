@@ -29,6 +29,8 @@ public class ReviewPage {
 
         this.reviewController = ReviewController.getInstance(DbConfig.IS_MOCK);
         this.itemController = ItemController.getInstance(DbConfig.IS_MOCK);
+        
+        stage.setTitle("Farmers Hub - Customer - Reviews");
        
 
         HBox topBar = new HBox();

@@ -77,6 +77,7 @@ public class SalesHistoryPage {
 
         Scene scene = new Scene(mainContainer, 400, 600);
         stage.setScene(scene);
+        stage.setTitle("Farmers Hub - Farmer - Sales History");
         stage.show();
     }
 
