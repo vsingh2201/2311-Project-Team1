@@ -23,6 +23,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import models.Item;
 import statics.DbConfig;
+import org.kordamp.bootstrapfx.BootstrapFX;
 
 public class UploadItemPage {
 
@@ -38,6 +39,9 @@ public class UploadItemPage {
         topBar.setSpacing(20);
 
         Button backButton = new Button("Back");
+        // Set style for BackButton
+        backButton.getStyleClass().setAll("btn-sm","btn-primary");
+        
         backButton.setOnAction(e -> stage.setScene(previousScene));
 
         Label pageTitle = new Label(item == null ? "Farmers Hub - Upload Item" : "Farmers Hub - Edit Item");
@@ -148,6 +152,7 @@ public class UploadItemPage {
         // Upload Button
         String buttonText = item == null ? "Upload" : "Update";
         Button uploadButton = new Button(buttonText);
+        uploadButton.getStyleClass().setAll("btn-sm","btn-success");
         HBox hbBtn = new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(uploadButton);
@@ -173,6 +178,7 @@ public class UploadItemPage {
         mainContainer.setPadding(new Insets(20));
 
         Scene scene = new Scene(mainContainer, 450, 700); 
+        scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
         stage.setScene(scene);
         stage.setTitle("Farmers Hub - Farmer - Upload Item");
         stage.show();
