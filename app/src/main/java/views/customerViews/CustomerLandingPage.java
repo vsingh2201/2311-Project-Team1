@@ -35,6 +35,8 @@ import models.Produce;
 import models.User;
 import statics.DbConfig;
 import utils.StringUtils;
+import views.UpdateProfilePage;
+
 import org.kordamp.bootstrapfx.BootstrapFX;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
@@ -124,8 +126,9 @@ public class CustomerLandingPage {
         // Add event handlers to menu items
         updateProfileItem.setOnAction(e -> {
             // Handle update profile action here
-            // For example:
-            // showUpdateProfilePage();
+        	// Handle update profile action here
+       	 Scene currentScene = stage.getScene();
+       	 showUpdateProfilePage(stage,currentScene);
         });
        
         logoutItem.setOnAction(registrationController.onBackToLoginButtonClick(stage));
@@ -319,5 +322,9 @@ public class CustomerLandingPage {
 		} else if ("Machine".equals(filterType)) {
 			machineButton.setStyle("-fx-background-color: lightblue;");
 		}
+	}
+	
+	private void showUpdateProfilePage(Stage stage, Scene scene) {
+		new UpdateProfilePage(stage,scene);
 	}
 }
