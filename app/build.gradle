@@ -114,3 +114,6 @@ tasks.register('integrationTest', Test) {
 }
 
 check.dependsOn integrationTest
+
+// Remove the dependency of check task on integrationTest task
+check.dependsOn = check.dependsOn - integrationTest

@@ -20,6 +20,14 @@ public class IntegrationTest {
     private static UserRepository userRepository;
     private static ItemRepository itemRepository;
     
+    /*
+     * Integration test is used to test the connection with local Postgres database
+     * Before running this integration test, open DbConfig.java in statics package.
+     * Set the DB_USER and DB_PASSWORD strings for your local postgres database
+     * Change IS_MOCK to false
+     * Run this integration test using integrationTest gradle task
+    */
+    
     @BeforeAll
     public static void setUp() {
     	// Set up database
