@@ -30,7 +30,7 @@ Run the Project
 
 ## Setting up Database
 
-You can either use the Mock database or the Local Postgres Database
+You can either use the Mock database or the Local Postgres Database.
 
 To set up the database, go to the DB config.java file at the following location
 
@@ -40,9 +40,10 @@ To set up the database, go to the DB config.java file at the following location
 
 To use Mock Database, set IS_MOCK boolean variable to true.
 
-To use Local Postgres Database, set the name of your local database to farmerhub.
-Set DB_USER to the username for local postgres database
-Set DB_PASSWORD to the password for local postgres database
+To use Local Postgres Database, set IS_MOCK boolean variable to false.
+Set the name of your local database to farmerhub.
+Set DB_USER to the username for your localhost postgres database
+Set DB_PASSWORD to the password for your localhost postgres database
 
 ## Running Tests
 
